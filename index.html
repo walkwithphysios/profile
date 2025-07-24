@@ -1,102 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Website Under Construction</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpeg" href="walkwithphysioslogo.jpeg" />
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      padding: 1rem;
-    }
-
-    /* Watermark background image */
-    body::before {
-      content: "";
-      background: url("walkwithphysioslogo.jpeg") no-repeat center center;
-      background-size: contain;
-      opacity: 0.5;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    h1, p, .loader, footer {
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      font-size: 2em;
-      margin-bottom: 0.5em;
-      padding: 0 0.5em;
-    }
-
-    p {
-      font-size: 1em;
-      margin-bottom: 1.5em;
-      padding: 0 1em;
-    }
-
-    .loader {
-      border: 6px solid #e0e0e0;
-      border-top: 6px solid #3498db;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 1em auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    footer {
-      position: relative;
-      font-size: 0.8em;
-      color: #666;
-      margin-top: auto;
-      padding-bottom: 1rem;
-    }
-
-    @media (min-width: 600px) {
-      h1 {
-        font-size: 2.5em;
-      }
-      .loader {
-        width: 60px;
-        height: 60px;
-        border-width: 8px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HousePhysio - Physiotherapy At Your Doorstep</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-  <h1>🚧 Website Under Construction 🚧</h1>
+<body class="font-sans antialiased text-gray-800 bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">WalkWithPhysio</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="hover:text-blue-500 transition">About</a>
+                <a href="#services" class="hover:text-blue-500 transition">Services</a>
+                <a href="#why-choose" class="hover:text-blue-500 transition">Why Choose Us</a>
+                <a href="#testimonials" class="hover:text-blue-500 transition">Testimonials</a>
+                <a href="#faqs" class="hover:text-blue-500 transition">FAQs</a>
+                <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
+            </div>
+            <button class="md:hidden focus:outline-none" id="menu-button">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white w-full py-3 px-6 shadow-inner" id="mobile-menu">
+            <div class="flex flex-col space-y-3">
+                <a href="#about" class="hover:text-blue-500 transition">About</a>
+                <a href="#services" class="hover:text-blue-500 transition">Services</a>
+                <a href="#why-choose" class="hover:text-blue-500 transition">Why Choose Us</a>
+                <a href="#testimonials" class="hover:text-blue-500 transition">Testimonials</a>
+                <a href="#faqs" class="hover:text-blue-500 transition">FAQs</a>
+                <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="flex flex-col w-full md:w-1/2 justify-center items-start md:pr-12">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-5 text-gray-800">Physiotherapy At Your Doorstep</h1>
+                <h2 class="text-xl md:text-2xl mb-8 text-gray-600">Get expert care and pain relief in the comfort of your home.</h2>
+                <a href="#appointment" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">Book an Appointment</a>
+            </div>
+            <div class="w-full md:w-1/2 py-6 flex justify-center">
+                <img class="w-full md:w-4/5 z-50 rounded-lg shadow-xl" src="walkwithphysioslogo.jpeg" alt="Physiotherapist helping patient">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/3 mb-8 md:mb-0 md:pr-8">
+                    <div class="rounded-full w-64 h-64 overflow-hidden mx-auto border-4 border-blue-100 shadow-lg">
+                        <img src="rudra.jpeg" alt="Dr.Rudra" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800">Dr.Rudra Prasad D K , PT</h2>
+                    <p class="text-lg mb-6 text-gray-600">A highly motivated and compassionate physiotherapist with a strong foundation in human anatomy, biomechanics, and evidence-based rehabilitation practices. Skilled in assessing, diagnosing, and developing individualized treatment plans to restore physical function, improve mobility, and enhance quality of life for patients across a variety of age groups and conditions. Experienced in managing both acute and chronic musculoskeletal conditions, sports injuries, post-surgical rehabilitation, and neurological disorders. Demonstrates excellent hands-on therapy skills, patient education, and interdisciplinary collaboration to deliver holistic care. Known for a patient-centered approach, strong communication, and a dedication to ongoing professional development. Committed to promoting wellness and prevention through tailored exercise programs, ergonomic advice, and lifestyle modifications.</p>
+                    <p class="text-lg mb-6 text-gray-600">I believe that true healing happens when patients are comfortable, which is why I bring professional physiotherapy services directly to your home. My personalized approach focuses on not just treating the symptoms but addressing the root cause of your condition.</p>
+                    <p class="text-lg mb-6 text-gray-600">Serving urban and suburban areas in Bangalore, I provide comprehensive care that adapts to your schedule and needs, eliminating the stress of travel while recovering.</p>
+                    <div class="flex flex-wrap">
+                        <span class="bg-blue-100 text-blue-800 rounded-full px-4 py-1 text-sm font-semibold mr-3 mb-3">Certified Physiotherapist</span>
+                        <span class="bg-blue-100 text-blue-800 rounded-full px-4 py-1 text-sm font-semibold mr-3 mb-3">6 Months Experience</span>
+                        <span class="bg-blue-100 text-blue-800 rounded-full px-4 py-1 text-sm font-semibold mr-3 mb-3">Home Visits</span>
+                        <span class="bg-blue-100 text-blue-800 rounded-full px-4 py-1 text-sm font-semibold mr-3 mb-3">Personalized Care</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-spine text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Back and Neck Pain Therapy</h3>
+                        <p class="text-gray-600">Targeted treatment for chronic and acute back/neck pain with manual therapy, exercises, and ergonomic advice to address the root cause.</p>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-hospital text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Post-operative Rehab</h3>
+                        <p class="text-gray-600">Specialized recovery programs for patients after surgery, focusing on restoring mobility, strength, and function in a home environment.</p>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-user-friends text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Geriatric Physiotherapy</h3>
+                        <p class="text-gray-600">Gentle, effective treatment for elderly patients focusing on mobility maintenance, fall prevention, and managing age-related conditions.</p>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-running text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Sports Injury Rehab</h3>
+                        <p class="text-gray-600">Specialized treatment for athletes and sports enthusiasts recovering from injuries, with focus on proper healing and performance enhancement.</p>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-dumbbell text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Home Exercise Plans</h3>
+                        <p class="text-gray-600">Customized exercise programs designed for your home environment, with detailed guidance to ensure proper form and technique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Home Physiotherapy -->
+    <section id="why-choose" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose Home Physiotherapy</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Reason 1 -->
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <i class="fas fa-home text-xl text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Convenience & Comfort</h3>
+                        <p class="text-gray-600">Receive professional treatment in familiar surroundings without the stress of travel or waiting rooms, especially beneficial when mobility is limited.</p>
+                    </div>
+                </div>
+                
+                <!-- Reason 2 -->
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <i class="fas fa-user-md text-xl text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Personalized Attention</h3>
+                        <p class="text-gray-600">Enjoy undivided, one-on-one care from your therapist with sessions tailored to your home environment and specific needs.</p>
+                    </div>
+                </div>
+                
+                <!-- Reason 3 -->
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <i class="fas fa-chart-line text-xl text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Faster Recovery</h3>
+                        <p class="text-gray-600">Research shows that patients often recover faster in comfortable, familiar environments with consistent, personalized care.</p>
+                    </div>
+                </div>
+                
+                <!-- Reason 4 -->
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <i class="fas fa-clock text-xl text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">No Travel or Waiting</h3>
+                        <p class="text-gray-600">Save time and energy by eliminating travel to clinics and long waiting periods, making recovery more efficient and stress-free.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Form Section -->
+    <section id="appointment" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Book an Appointment</h2>
+            <div class="bg-white rounded-lg shadow-xl p-8 max-w-3xl mx-auto">
+                <form id="appointment-form" action="https://formspree.io/f/xqaqweny" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your Full Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="Your Email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number *</label>
+                        <div class="flex items-center w-full border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+                            <span class="text-gray-500 px-4 py-3 bg-gray-100 border-r border-gray-300">+91</span>
+                            <input type="tel" id="phone" name="phone" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" class="w-full px-4 py-3 border-0 focus:outline-none">
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="address" class="block text-gray-700 font-medium mb-2">Full Address *</label>
+                        <input type="text" id="address" name="address" required placeholder="Full Address" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label for="preferred_date" class="block text-gray-700 font-medium mb-2">Preferred Date *</label>
+                        <input type="date" id="preferred_date" name="preferred_date" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label for="preferred_time" class="block text-gray-700 font-medium mb-2">Preferred Time *</label>
+                        <input type="time" id="preferred_time" name="preferred_time" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="service" class="block text-gray-700 font-medium mb-2">Service Required *</label>
+                        <select id="service" name="service" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option disabled selected>Select Service</option>
+                            <option>Back/Neck Pain Therapy</option>
+                            <option>Post-Operative Rehab</option>
+                            <option>Geriatric Physiotherapy</option>
+                            <option>Sports Injury Rehab</option>
+                            <option>Home Exercise Plan</option>
+                        </select>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="message" class="block text-gray-700 font-medium mb-2">Additional Message (optional)</label>
+                        <textarea id="message" name="message" placeholder="Additional details about your condition or requirements" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    
+                    <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="New Appointment Request from HousePhysio Website">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="hidden" name="website" value="HousePhysio Website">
+                    
+                    <div class="md:col-span-2">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                            Book Appointment
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="form-success" class="hidden mt-6 p-4 rounded-lg"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <!-- <section id="testimonials" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">What Our Patients Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <!-- <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"After my knee surgery, I was worried about traveling to physical therapy sessions. Dr. Sharma came to my home and provided excellent care. I recovered much faster than expected!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-700 font-bold">RK</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Rahul Kumar</h4>
+                            <p class="text-sm text-gray-500">Post-Surgery Patient</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <!-- <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"My mother, 78, was reluctant to go to a clinic for her joint pain. Home physiotherapy was perfect for her. Dr. Priya is gentle, professional, and has significantly improved my mother's mobility."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-700 font-bold">SA</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sneha Agarwal</h4>
+                            <p class="text-sm text-gray-500">Daughter of Geriatric Patient</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <!-- <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"As a runner, I developed severe back pain that affected my training. Dr. Sharma not only treated my condition but also designed a home exercise plan that helped me get back to running in just 4 weeks!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-700 font-bold">VT</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Vikram Thakur</h4>
+                            <p class="text-sm text-gray-500">Sports Injury Patient</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->  
+
+    <!-- FAQs Section -->
+    <!-- <section id="faqs" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Frequently Asked Questions</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-bold p-4 border-b border-gray-200 focus:outline-none">
+                        <span>Do you bring equipment?</span>
+                        <i class="fas fa-plus text-blue-600 transition-transform transform"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 p-4 text-gray-600">
+                        Yes, I bring all necessary equipment for your session, including massage tools, resistance bands, and portable electrotherapy devices. For specialized treatments, I'll inform you in advance if any specific setup is required at your home.
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-bold p-4 border-b border-gray-200 focus:outline-none">
+                        <span>Are your services covered by insurance?</span>
+                        <i class="fas fa-plus text-blue-600 transition-transform transform"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 p-4 text-gray-600">
+                        Many health insurance plans cover physiotherapy services. I provide detailed receipts with all necessary information for insurance reimbursement. I recommend checking with your insurance provider about your specific coverage for home physiotherapy services.
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-bold p-4 border-b border-gray-200 focus:outline-none">
+                        <span>How long is a typical session?</span>
+                        <i class="fas fa-plus text-blue-600 transition-transform transform"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 p-4 text-gray-600">
+                        Initial assessments typically take 45-60 minutes, while follow-up treatment sessions range from 30-45 minutes depending on your condition. I ensure each session is thorough and customized to your specific needs rather than rushing through a fixed time slot.
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-bold p-4 border-b border-gray-200 focus:outline-none">
+                        <span>What areas do you serve?</span>
+                        <i class="fas fa-plus text-blue-600 transition-transform transform"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 p-4 text-gray-600">
+                        I currently serve all urban and suburban areas within Bangalore city limits. If you're unsure whether your location is covered, please contact me with your address details, and I'll confirm availability.
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-bold p-4 border-b border-gray-200 focus:outline-none">
+                        <span>How many sessions will I need?</span>
+                        <i class="fas fa-plus text-blue-600 transition-transform transform"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 p-4 text-gray-600">
+                        The number of sessions varies based on your condition, its severity, and how well you respond to treatment. After the initial assessment, I'll provide a treatment plan with an estimated number of sessions. We'll regularly review progress and adjust as needed.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Contact Us</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-lg shadow-md p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-phone text-xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Phone</h3>
+                            <p class="text-gray-600">+91  6363332872</p>
+                            <p class="text-gray-600">Available 9AM - 7PM, Mon-Sat</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start mb-6">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-envelope text-xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Email</h3>
+                            <p class="text-gray-600"> rudraprasaddk@gmail.com</p>
+                            <p class="text-gray-600">Response within 24 hours</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fab fa-whatsapp text-xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">WhatsApp</h3>
+                            <p class="text-gray-600">+91 6363332872 </p>
+                            <p class="text-gray-600">Fastest response method</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold">WalkwithPhysio</h2>
+                    <p class="text-gray-400 mt-2">Physiotherapy At Your Doorstep</p>
+                </div>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+                    <a href="#about" class="text-gray-300 hover:text-white transition">About</a>
+                    <a href="#services" class="text-gray-300 hover:text-white transition">Services</a>
+                    <a href="#appointment" class="text-gray-300 hover:text-white transition">Book Appointment</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
+                </div>
+                <div class="mt-6 md:mt-0">
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2023 Walkwithphysio. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init('xiqZGo3oV0oTEc2YT'); // Replace with your EmailJS public key
+  })();
+</script>
+
 </body>
-</html>
+</html> 
