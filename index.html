@@ -482,9 +482,50 @@
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 <script>
-  (function(){
-    emailjs.init('xiqZGo3oV0oTEc2YT'); // Replace with your EmailJS public key
-  })();
+
+    (function(){
+        emailjs.init('Pxj5nk570KXMLCevX'); // TODO: Replace with your EmailJS public key
+    })();
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('appointment-form');
+        var successDiv = document.getElementById('form-success');
+        if(form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Collect form data
+                var formData = {
+                    name: form.name.value,
+                    email: form.email.value,
+                    phone: form.phone.value,
+                    address: form.address.value,
+                    preferred_date: form.preferred_date.value,
+                    preferred_time: form.preferred_time.value,
+                    service: form.service.value,
+                    message: form.message.value
+                };
+                console.log("Form Data: ", formData);
+                
+                //TODO:  replace service_id and template_id with your EmailJS service and template IDs
+                emailjs.send("service_dxf1q7h","template_cbupg8m", formData)
+                    .then(function(response) {
+                        form.reset();
+                        if(successDiv) {
+                            successDiv.textContent = 'Thank you! Your appointment request has been sent.';
+                            successDiv.classList.remove('hidden');
+                            successDiv.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300');
+                        }
+                    }, function(error) {
+                        console.log("error: ", error);
+                        if(successDiv) {
+                            successDiv.textContent = 'Sorry, there was an error sending your request. Please try again later.';
+                            successDiv.classList.remove('hidden');
+                            successDiv.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-300');
+                        }
+                    });
+            });
+        }
+    });
 </script>
 
 </body>
