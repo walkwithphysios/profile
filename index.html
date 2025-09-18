@@ -484,7 +484,7 @@
 <script>
 
     (function(){
-        emailjs.init('Pxj5nk570KXMLCevX'); // TODO: Replace with your EmailJS public key
+        emailjs.init('wEGC0krW7ZBzchurF'); // TODO: Replace with your EmailJS public key
     })();
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -506,7 +506,6 @@
                     doctors_email: "walkwithphysios@gmail.com"
                 };
                 console.log("Form Data: ", formData);
-                
                 //TODO:  replace service_id and template_id with your EmailJS service and template IDs
                 emailjs.send("service_hfl1tgz","template_yvoqfcj", formData)
                     .then(function(response) {
