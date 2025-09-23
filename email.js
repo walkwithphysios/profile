@@ -78,38 +78,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const formAction = appointmentForm.getAttribute('action');
             
             // Add a hidden honeypot field for spam protection
-             const formData = new FormData(appointmentForm);
-            const requiredFields = appointmentForm.querySelectorAll('[required]');
+            const formData = new FormData(appointmentForm);
             const templateParams = {};
-            requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                const fieldName = field.previousElementSibling ? field.previousElementSibling.textContent.replace('*', '').trim() : 'This field';
-                displayError(field, `${fieldName} is required`);
-            }else if (field.type === 'email') {
-                templateParams["customer_email"]= field.value;
-                templeteParams["email"]= "shreyasbajjir082@gmail.com";
-                templateParams["appointment_id"]= generateAppointmentId();
-            } else if (field.id === 'phone') {
-                templateParams["phone"]=field.value;
-            }else if (field.id === 'service') {
-                templateparams["service"]=field.value;                
-            }else if (field.id === 'address') {
-                templateparams["address"]=field.value;
-            }else if (field.id === 'preferred_date') {
-                templateparams["preferred_date"]=field.value;
-            }else if (field.id === 'preferred_time') {
-                templateparams["preferred_time"]=field.value;
-            }else if (field.id === 'message') {
-                templateparams["message"]=field.value;
-            }
             
-
-        })
+            templateParams["name"] = document.getElementById('name').value;
+            templateParams["email"] = document.getElementById('email').value; 
+            templateParams["customer_email"] = document.getElementById('email').value; 
+            templateParams["business_email"] = "shreyasbajjir082@gmail.com"; 
+            templateParams["phone"] = document.getElementById('phone').value;
+            templateParams["service"] = document.getElementById('service').value;
+            templateParams["address"] = document.getElementById('address').value;
+            templateParams["preferred_date"] = document.getElementById('preferred_date').value;
+            templateParams["preferred_time"] = document.getElementById('preferred_time').value;
+            templateParams["message"] = document.getElementById('message').value;
+            templateParams["appointment_id"] = generateAppointmentId();
            
-           
-        emailjs.send('service_1xm3pgh', 'template_7y6f677', templateParams)
-        .then(function() {
+        emailjs.send('service_hfl1tgz', 'template_yvoqfcj', templateParams)
+        .then(function(response) {
             // Handle success (show thanks, redirect, clear form, etc.)
+            console.log('Email sent successfully:', response);
             window.location.href = 'thank-you.html';
         }, function(error) {
             // Handle failure
