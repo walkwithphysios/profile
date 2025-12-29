@@ -1,0 +1,50 @@
+/* Custom Styles complementing Tailwind */
+
+html {
+    scroll-behavior: smooth;
+}
+
+.text-medical-blue {
+    color: #007bff;
+}
+
+.bg-medical-blue {
+    background-color: #007bff;
+}
+
+.text-medical-green {
+    color: #28a745;
+}
+
+.bg-medical-green {
+    background-color: #28a745;
+}
+
+.border-medical-blue {
+    border-color: #007bff;
+}
+
+.border-medical-green {
+    border-color: #28a745;
+}
+
+/* Form Element Styling */
+input, select, textarea {
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Card Hover Effects */
+.hover\:shadow-lg:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Menu Animation */
+#mobile-menu {
+    transition: max-height 0.3s ease-in-out;
+}
