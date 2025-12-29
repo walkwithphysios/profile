@@ -1,266 +1,336 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+    // Initialize EmailJS
+    // IMPORTANT: Replace with your actual credentials from emailjs.com
+    const PUBLIC_KEY = "wEGC0krW7ZBzchurF";
+    const SERVICE_ID = "service_hfl1tgz";
+    const TEMPLATE_ID = "template_yvoqfcj";
     
-    if (menuButton && mobileMenu) {
-        menuButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
+    // Update copyright year
+    const yearElement = document.getElementById('year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
     }
-    
-    // Close mobile menu when clicking a nav link
-    const mobileNavLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.classList.add('hidden');
-        });
+
+    // Initialize EmailJS if the SDK is loaded
+    if (typeof emailjs !== 'undefined') {
+        try {
+            emailjs.init(PUBLIC_KEY);
+            console.log("EmailJS Initialized");
+        } catch (e) {
+            console.warn("EmailJS init failed (expected if using placeholders):", e);
+        }
+    }
+  const physioservices = [
+    {
+      key: 'pain',
+      title: 'Pain Management',
+      short:
+        'Manual Therapy, Soft Tissue Release, TENS, IFT, Ultrasound, Dry Needling, Cupping, K-Tape, Cryotherapy, Laser Therapy.',
+      long:
+        'Comprehensive pain relief for acute and chronic conditions using manual therapy, soft tissue work, electrotherapy, ultrasound, dry needling, cupping, taping, cryotherapy, and laser therapy.',
+      borderClass: 'medical-blue',
+    },
+    {
+      key: 'ortho',
+      title: 'Ortho Rehab',
+      short:
+        'Back/Neck Pain, Post-Fracture Recovery, Joint Replacement (TKR/THR), Arthritis Management, Shoulder Rehab.',
+      long:
+        'Focused rehab for spine, joint, and post-fracture conditions, including mobilization, strengthening, posture correction, gait training, and guided home exercises.',
+      borderClass: 'medical-green',
+    },
+    {
+      key: 'sports',
+      title: 'Sports Physio',
+      short:
+        'Injury Management, Return-to-Sport Programs, Screening, Sports Massage.',
+      long:
+        'Sport-specific assessment and rehabilitation for strains, sprains, overuse injuries, and post-surgical recovery with return-to-play planning.',
+      borderClass: 'yellow-500',
+    },
+    {
+      key: 'neuro',
+      title: 'Neuro Rehab',
+      short:
+        'Stroke Recovery, Parkinson’s, Spinal Cord Injury, Bell’s Palsy, Nerve Injury.',
+      long:
+        'Therapy to improve balance, coordination, walking, hand function, and independence after stroke, Parkinson’s, spinal cord injury, or nerve damage.',
+      borderClass: 'indigo-500',
+    },
+    {
+      key: 'cardio',
+      title: 'Cardiorespiratory',
+      short: 'Post-Covid Rehabilitation, Chest Physio, Cardiac Rehab.',
+      long:
+        'Breathing exercises, airway clearance, graded aerobic training, and endurance building after Covid-19, cardiac events, or chronic respiratory conditions.',
+      borderClass: 'red-500',
+    },
+    {
+      key: 'special',
+      title: 'Specialized Care',
+      short:
+        'Geriatric Wellness, Pediatric Physio, Women’s Health, Ergonomics, Vestibular Rehab.',
+      long:
+        'Tailored physio for seniors, children, and women, plus workplace ergonomics and dizziness/vertigo care with a focus on safety and long-term prevention.',
+      borderClass: 'pink-500',
+    },
+  ];
+  const labservies = [
+    {
+      key: 'hematology ',
+      icon: '<i class="fas fa-tint mr-2"></i>',
+      title: 'Hematology',
+      short:
+        'Complete Blood Count (CBC), Blood Smear, Coagulation Tests, Erythrocyte Sedimentation Rate (ESR).',
+      long:
+        'Comprehensive blood analysis including CBC, blood smear examination, coagulation profiles, and ESR for diagnosing various hematological conditions.',
+      borderClass: 'medical-blue',
+    },
+    {
+      key: 'biochemistry',
+      icon: '<i class="fas fa-flask mr-2"></i>',
+      title: 'Biochemistry',
+      short:
+        'Liver Function Tests, Kidney Function Tests, Lipid Profile, Blood Glucose Tests.',
+      long:
+        'Extensive biochemical testing including liver and kidney function panels, lipid profiles, and blood glucose assessments for metabolic health evaluation.',
+      borderClass: 'medical-green',
+    },
+    {
+      key: 'hormones',
+      icon: '<i class="fas fa-dna mr-2"></i>',
+      title: 'Hormones',
+      short:
+        'Thyroid Function Tests, Reproductive Hormone Panels, Adrenal Function Tests.',
+      long:
+        'Detailed hormonal analysis including thyroid function, reproductive hormone panels, and adrenal function tests for endocrine health assessment.',
+      borderClass: 'yellow-500',
+    },
+    {
+      key: 'serology',
+      icon: '<i class="fas fa-virus mr-2"></i>',
+      title: 'Serology',
+      short:
+        'Infectious Disease Screening, Autoimmune Panels, Allergy Testing.',
+      long:
+        'Comprehensive serological testing for infectious diseases, autoimmune conditions, and allergy identification through specific antibody detection.',
+      borderClass: 'indigo-500',
+    },
+    {
+      key: 'vitamins',
+      icon: '<i class="fas fa-heart mr-2"></i>',
+      title: 'Vitamins & Cardiac',
+      short: 'Vitamin D, Vitamin B12, Cardiac Enzyme Tests.',
+      long:
+        'Assessment of vitamin levels including Vitamin D and B12, along with cardiac enzyme tests for heart health evaluation.',
+      borderClass: 'red-500',
+    },
+    {
+      key: 'tumor',
+      icon: '<i class="fas fa-microscope mr-2"></i>',
+      title: 'Tumor Markers',
+      short:
+        'Prostate-Specific Antigen (PSA), CA-125, CEA, Alpha-Fetoprotein (AFP).',
+      long:
+        'Screening and monitoring of various cancers through tumor marker tests including PSA, CA-125, CEA, and AFP.',
+      borderClass: 'pink-500',
+    },
+  ]
+
+  const physiocardsContainer1 = document.getElementById('cards-container1');
+  const physiocardsContainer2 = document.getElementById('cards-container2');
+
+  const labcardsContainer1 = document.getElementById('lab-cards-container1');
+  const labcardsContainer2 = document.getElementById('lab-cards-container2');
+
+
+  let physioFocusedMode = false; 
+  let labsFocusedMode = false; // false = 3+3 grid, true = all-left + detail-right
+  let physioActiveKey = null;
+  let labActiveKey = null;
+
+  function renderCards(services , con1 , con2 , focusedMode , activeKey) {
+    con1.innerHTML = '';
+    con2.innerHTML = '';
+
+    var i=0
+    services.forEach(service => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.key = service.key;
+      colour = service.borderClass;
+      icon = service.icon ? service.icon : '';
+      btn.className =
+        'service-card text-left bg-white p-6 rounded-xl shadow-sm ' +
+        'border-l-4 border-' + service.borderClass +
+        ' hover:shadow-md transition cursor-pointer ' +
+        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-medical-green';
+      btn.innerHTML = `
+        <h3 class="text-${colour} font-semibold text-gray-900">${icon}${service.title}</h3>
+        ${
+          !focusedMode
+            ? `<p class="mt-1 text-xs text-gray-600">${service.short}</p>`
+            : ''
+        }
+      `;
+
+      btn.addEventListener('click', () => handleClick(service.key , services , con1 , con2 , focusedMode , activeKey));
+      if (!focusedMode) {
+            if (i < 3) {
+            con1.appendChild(btn);
+        } else {
+            con2.appendChild(btn);
+        }
+
+      } else{
+        con1.appendChild(btn);
+      }
+      i = i + 1;
+      
     });
-    
-    // FAQ accordion functionality
-    const faqToggles = document.querySelectorAll('.faq-toggle');
-    
-    faqToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            // Get the content element that follows this toggle
-            const content = this.nextElementSibling;
-            const icon = this.querySelector('i');
-            
-            // Toggle visibility of content
-            content.classList.toggle('hidden');
-            
-            // Rotate plus icon when expanded
-            icon.classList.toggle('active');
-            
-            // Close other open FAQs
-            faqToggles.forEach(otherToggle => {
-                if (otherToggle !== toggle) {
-                    const otherContent = otherToggle.nextElementSibling;
-                    const otherIcon = otherToggle.querySelector('i');
-                    
-                    if (!otherContent.classList.contains('hidden')) {
-                        otherContent.classList.add('hidden');
-                        otherIcon.classList.remove('active');
-                    }
-                }
-            });
-        });
+
+    // Layout:
+    // initial: 2 columns (3+3)
+    // focused: all in first column (single column list)
+    if (focusedMode) {
+        const wrapper = document.createElement('div');
+        wrapper.className = "space-y-1";
+        const detailtitle = document.createElement('h3');
+        detailtitle.className = "text-xl font-bold text-gray-900";
+        detailtitle.textContent = services.find(s => s.key === activeKey).title;
+        detailtitle.id = "detail-title";
+        const detailbody = document.createElement('p');
+        detailbody.className = "text-sm text-gray-600 leading-relaxed";
+        detailbody.textContent = services.find(s => s.key === activeKey).long;
+        detailbody.id = "detail-body";
+        wrapper.appendChild(detailtitle);
+        wrapper.appendChild(detailbody);
+        con2.appendChild(wrapper);
+    }
+
+    // Restore highlight if any
+    if (activeKey) highlightActive(services , con1 , activeKey);
+  }
+
+  function handleClick(key , services , con1 , con2 , focusedMode , activeKey) {
+    if (!focusedMode) {
+      // first click: switch layout
+      focusedMode = true;
+      activeKey = key;
+      // re-render cards so they move to single left column without short text
+      renderCards(services , con1 , con2 , focusedMode , activeKey);
+    }
+    else {
+      // already focused: clicking same card de-focuses
+      if (activeKey === key) {
+        focusedMode = false;
+        activeKey = null;
+        renderCards(services , con1 , con2 , focusedMode , activeKey);
+      }else {
+        activeKey = key;
+        highlightActive(services , con1 , activeKey);
+        renderCards(services , con1 , con2, focusedMode , activeKey);
+      }
+
+    }
+
+    // activeKey = key;
+    // highlightActive();
+    // updateDetail();
+  }
+
+  function highlightActive(services , con , activeKey) {
+    const buttons = con.querySelectorAll('.service-card');
+    buttons.forEach(btn => {
+      const isActive = btn.dataset.key === activeKey;
+      colour = services.find(s => s.key === activeKey).borderClass;
+      btn.classList.toggle('ring-2', isActive);
+      btn.classList.toggle('ring-' + colour, isActive);
+      btn.classList.toggle('bg-green-50', isActive);
     });
+  }
+
+ 
+
+  // Initial render: 3 cards per column (2-col grid with short desc)
+  renderCards(physioservices , physiocardsContainer1 , physiocardsContainer2 , physioFocusedMode , physioActiveKey);
+  
+  renderCards(labservies , labcardsContainer1 , labcardsContainer2 , labsFocusedMode , labActiveKey);
+
+    function toggleServices() {
+        document.getElementById("services-dropdown").classList.toggle("hidden");
+    }
+    // Handle Appointment Booking
+    const bookingForm = document.getElementById('appointmentForm');
     
-    // Form validation and submission
-    const appointmentForm = document.getElementById('appointment-form');
-    const formSuccess = document.getElementById('form-success');
-    
-    if (appointmentForm) {
-        appointmentForm.addEventListener('submit', function(event) {
-            // Validate the form before submission
-            if (!validateForm()) {
-                event.preventDefault();
-                return false;
-            }
-            
-            // Add the +91 prefix to the phone number for submission
-            const phoneInput = document.getElementById('phone');
-            if (phoneInput) {
-                const formattedPhone = "+91" + phoneInput.value;
-                // Create a temporary hidden input for the formatted phone
-                const formattedPhoneInput = document.createElement('input');
-                formattedPhoneInput.type = 'hidden';
-                formattedPhoneInput.name = 'formatted_phone';
-                formattedPhoneInput.value = formattedPhone;
-                appointmentForm.appendChild(formattedPhoneInput);
-            }
-            
-            // If using Formspree and the form is valid, handle submission
-            // This code handles the form submission without page reload
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', async function(event) {
             event.preventDefault();
+            console.log("Booking form submitted");
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnText = submitBtn.innerText;
             
-            const formData = new FormData(appointmentForm);
-            const formAction = appointmentForm.getAttribute('action');
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             
-            // Add a hidden honeypot field for spam protection
-            const honeypot = document.createElement('input');
-            honeypot.type = 'text';
-            honeypot.name = '_gotcha';
-            honeypot.value = '';
-            honeypot.style.display = 'none';
-            appointmentForm.appendChild(honeypot);
-            
-            fetch(formAction, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
+            try {
+                // 1. Generate Appointment ID
+                const appointmentId = 'APT-' + Math.floor(Math.random() * 1000000);
+                
+                // 2. Gather Form Data
+                const formData = new FormData(bookingForm);
+                const data = Object.fromEntries(formData.entries());
+                
+                // Add derived fields
+                data.appointment_id = appointmentId;
+                data.customer_email = data.email; // Map for template
+                data.business_email = "shreyasbajjir082@gmail.com"; // Admin email
+                
+                console.log("Preparing to send appointment:", data);
+
+                // 3. Send Email via EmailJS
+                // Note: This will fail if using placeholder keys, so we wrap in try-catch to simulate success for demo
+                let emailResult = { status: 200, text: "Simulated Success" };
+
+                
+                emailResult = await emailjs.send(SERVICE_ID, TEMPLATE_ID, data);
+                
+                
+
+                // 4. Save to Database (Backup Record)
+                // This ensures data is captured even if email fails or limits are reached
+                try {
+                    if (window.LeadGenRuntime && window.LeadGenRuntime.insertData) {
+                        await window.LeadGenRuntime.insertData('appointments', {
+                            name: data.name,
+                            email: data.email,
+                            phone: data.phone,
+                            service: data.service,
+                            address: data.address,
+                            preferred_date: data.preferred_date,
+                            preferred_time: data.preferred_time,
+                            message: data.message || '',
+                            appointment_id: appointmentId
+                        });
+                        console.log("Appointment saved to database backup");
+                    }
+                } catch (dbError) {
+                    console.warn("Database backup skipped:", dbError.message);
                 }
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Redirect to thank you page on successful submission
-                    window.location.href = 'thank-you.html';
-                } else {
-                    return response.json().then(data => {
-                        throw new Error(data.error || 'Form submission failed');
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showFormError(error.message);
-            });
-        });
-    }
-    
-    // Form validation function
-    function validateForm() {
-        let isValid = true;
-        const requiredFields = appointmentForm.querySelectorAll('[required]');
-        
-        // Reset previous validation errors
-        const errorElements = appointmentForm.querySelectorAll('.error-message');
-        errorElements.forEach(el => el.remove());
-        
-        // Check each required field
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                const fieldName = field.previousElementSibling ? field.previousElementSibling.textContent.replace('*', '').trim() : 'This field';
-                displayError(field, `${fieldName} is required`);
-                isValid = false;
-            } else if (field.type === 'email' && !validateEmail(field.value)) {
-                displayError(field, 'Please enter a valid email address (e.g., name@example.com)');
-                isValid = false;
-            } else if (field.id === 'phone') {
-                if (field.value.length < 10) {
-                    displayError(field, 'Phone number must be exactly 10 digits');
-                    isValid = false;
-                } else if (!validatePhone(field.value)) {
-                    displayError(field, 'Phone number should contain only digits (0-9)');
-                    isValid = false;
-                }
-            } else if (field.id === 'service' && field.selectedIndex === 0) {
-                displayError(field, 'Please select a service');
-                isValid = false;
+
+                // 5. Success UI
+                alert(`Appointment Booked Successfully!\n\nYour Appointment ID is: ${appointmentId}\nWe will confirm with you shortly.`);
+                bookingForm.reset();
+                
+            } catch (error) {
+                console.error("Booking Error:", error);
+                alert("There was an error booking your appointment. Please call us directly.");
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
             }
         });
-        
-        return isValid;
     }
-    
-    // Display error message below the field
-    function displayError(field, message) {
-        // Get the parent element - might be different for phone due to our custom layout
-        let parent = field.parentNode;
-        if (parent.classList.contains('flex')) {
-            parent = parent.parentNode; // For phone field, go one level up
-        }
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message text-red-500 text-sm mt-1';
-        errorDiv.innerText = message;
-        parent.appendChild(errorDiv);
-        
-        // Highlight the field with error
-        field.classList.add('border-red-500');
-        
-        // For phone field, highlight the container too
-        if (field.id === 'phone' && field.parentNode.classList.contains('flex')) {
-            field.parentNode.classList.add('border-red-500');
-        }
-        
-        // Remove error styling when user starts typing
-        field.addEventListener('input', function() {
-            this.classList.remove('border-red-500');
-            // For phone field, remove highlight from container too
-            if (this.id === 'phone' && this.parentNode.classList.contains('flex')) {
-                this.parentNode.classList.remove('border-red-500');
-            }
-            
-            const parentElement = this.parentNode.classList.contains('flex') ? 
-                this.parentNode.parentNode : this.parentNode;
-            const error = parentElement.querySelector('.error-message');
-            if (error) {
-                error.remove();
-            }
-        });
-        
-        // Also remove error on dropdown change
-        if (field.tagName === 'SELECT') {
-            field.addEventListener('change', function() {
-                this.classList.remove('border-red-500');
-                const error = this.parentNode.querySelector('.error-message');
-                if (error) {
-                    error.remove();
-                }
-            });
-        }
-    }
-    
-    // Show success message
-    function showFormSuccess() {
-        if (formSuccess) {
-            formSuccess.classList.remove('hidden');
-            formSuccess.textContent = "Thank you for booking an appointment! We will contact you shortly to confirm the details.";
-            formSuccess.classList.add('bg-green-100', 'text-green-700');
-            
-            // Scroll to success message
-            formSuccess.scrollIntoView({ behavior: 'smooth' });
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                formSuccess.classList.add('hidden');
-            }, 5000);
-        }
-    }
-    
-    // Show error message for form submission
-    function showFormError(errorMessage) {
-        if (formSuccess) {
-            formSuccess.classList.remove('hidden', 'bg-green-100', 'text-green-700');
-            formSuccess.textContent = errorMessage || "There was a problem submitting your form. Please try again later.";
-            formSuccess.classList.add('bg-red-100', 'text-red-700');
-            
-            // Scroll to error message
-            formSuccess.scrollIntoView({ behavior: 'smooth' });
-            
-            // Hide error message after 5 seconds
-            setTimeout(() => {
-                formSuccess.classList.add('hidden');
-            }, 5000);
-        }
-    }
-    
-    // Email validation
-    function validateEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-    
-    // Phone validation (10-digit Indian phone numbers)
-    function validatePhone(phone) {
-        const re = /^[0-9]{10}$/;
-        return re.test(String(phone));
-    }
-    
-    // Set minimum date for appointment to today
-    const dateInput = document.getElementById('preferred_date');
-    if (dateInput) {
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.setAttribute('min', today);
-    }
-    
-    // Smooth scrolling for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80, // Adjust for fixed header
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}); 
+});
