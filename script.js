@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     con1.innerHTML = '';
     con2.innerHTML = '';
 
+    const isMobile = window.innerWidth < 768;
     var i=0
     services.forEach(service => {
       const btn = document.createElement('button');
@@ -161,12 +162,12 @@ document.addEventListener('DOMContentLoaded', function() {
       colour = service.borderClass;
       icon = service.icon ? service.icon : '';
       btn.className =
-        'service-card text-left bg-white p-6 rounded-xl shadow-sm ' +
+        'service-card text-left bg-white p-4 md:p-6 rounded-xl shadow-sm ' +
         'border-l-4 border-' + service.borderClass +
-        ' hover:shadow-md transition cursor-pointer ' +
+        ' hover:shadow-md transition cursor-pointer w-full ' +
         'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-medical-green';
       btn.innerHTML = `
-        <h3 class="text-${colour} font-semibold text-gray-900">${icon}${service.title}</h3>
+        <h3 class="text-${colour} font-semibold text-gray-900 text-sm md:text-base">${icon}${service.title}</h3>
         ${
           !focusedMode
             ? `<p class="mt-1 text-xs text-gray-600">${service.short}</p>`
@@ -176,12 +177,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
       btn.addEventListener('click', () => handleClick(service.key , services , con1 , con2 , focusedMode , activeKey));
       if (!focusedMode) {
-            if (i < 3) {
-            con1.appendChild(btn);
-        } else {
-            con2.appendChild(btn);
-        }
-
+            // On mobile, all cards in single column. On desktop, split 3+3
+            if (isMobile) {
+                con1.appendChild(btn);
+            } else {
+                if (i < 3) {
+                    con1.appendChild(btn);
+                } else {
+                    con2.appendChild(btn);
+                }
+            }
       } else{
         con1.appendChild(btn);
       }
@@ -190,17 +195,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Layout:
-    // initial: 2 columns (3+3)
+    // initial: 2 columns (3+3) on desktop, 1 column on mobile
     // focused: all in first column (single column list)
     if (focusedMode) {
         const wrapper = document.createElement('div');
-        wrapper.className = "space-y-1";
+        wrapper.className = "space-y-2 md:space-y-3 p-4 md:p-6 bg-gray-50 rounded-xl";
         const detailtitle = document.createElement('h3');
-        detailtitle.className = "text-xl font-bold text-gray-900";
+        detailtitle.className = "text-lg md:text-xl font-bold text-gray-900";
         detailtitle.textContent = services.find(s => s.key === activeKey).title;
         detailtitle.id = "detail-title";
         const detailbody = document.createElement('p');
-        detailbody.className = "text-sm text-gray-600 leading-relaxed";
+        detailbody.className = "text-xs md:text-sm text-gray-600 leading-relaxed";
         detailbody.textContent = services.find(s => s.key === activeKey).long;
         detailbody.id = "detail-body";
         wrapper.appendChild(detailtitle);
@@ -257,8 +262,36 @@ document.addEventListener('DOMContentLoaded', function() {
   
   renderCards(labservies , labcardsContainer1 , labcardsContainer2 , labsFocusedMode , labActiveKey);
 
+    // Re-render cards on window resize to adapt layout
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            renderCards(physioservices , physiocardsContainer1 , physiocardsContainer2 , physioFocusedMode , physioActiveKey);
+            renderCards(labservies , labcardsContainer1 , labcardsContainer2 , labsFocusedMode , labActiveKey);
+        }, 250);
+    });
+
     function toggleServices() {
         document.getElementById("services-dropdown").classList.toggle("hidden");
+    }
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
     }
     // Handle Appointment Booking
     const bookingForm = document.getElementById('appointmentForm');

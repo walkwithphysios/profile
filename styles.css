@@ -48,3 +48,123 @@ input:focus, select:focus, textarea:focus {
 #mobile-menu {
     transition: max-height 0.3s ease-in-out;
 }
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    /* Ensure touch targets are at least 44px */
+    button, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Better spacing for mobile */
+    section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    
+    /* Prevent text overflow */
+    h1, h2, h3, h4, h5, h6 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* Optimize images for mobile */
+    img, video {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Better form inputs on mobile */
+    input, select, textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Service cards stack nicely */
+    .service-card {
+        width: 100%;
+    }
+}
+/* Stats Section */
+.stats-section {
+    background-color: #2563EB;
+    color: white;
+    padding: 60px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    text-align: center;
+}
+
+.stat-icon svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 16px;
+    stroke: rgba(255,255,255,0.9);
+}
+
+.stat-card h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.stat-card p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Adjust grid layouts for tablets */
+    .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+/* Testimonials */
+.testimonials-section {
+    background-color: #f3f4f6;
+    padding: 80px 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.testimonial-card p {
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--text-main);
+}
+
+.author {
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.section-header p {
+    color: #6B7280;
+}
